@@ -1,0 +1,47 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import PageIntro from '../components/PageIntro.astro';
+import VisitBand from '../components/VisitBand.astro';
+import entrance from '../assets/img/offices/9038865.jpg';
+import street from '../assets/img/offices/8398294.jpg';
+import building from '../assets/img/offices/6321566.jpg';
+import reception from '../assets/img/offices/243166.jpg';
+import bench from '../assets/img/offices/2397141.jpg';
+import equipment from '../assets/img/offices/8092356.jpg';
+const photos = [
+  { src: reception, alt: 'Renovated reception area with a light wood front desk', cls: 'wide' },
+  { src: entrance, alt: 'Lab entrance with the Progressive Dental logo on the glass door', cls: '' },
+  { src: bench, alt: 'Technician’s workbench by the window with a magnifying lamp and tools', cls: '' },
+  { src: equipment, alt: 'Lab equipment, including a porcelain furnace', cls: '' },
+  { src: building, alt: 'The lab building, a brick bungalow with a gravel drive', cls: '' },
+  { src: street, alt: 'The lab seen from the street, with trees and a front lawn', cls: 'full' },
+];
+---
+<Base title="Our New Offices" description="Our newly renovated lab in downtown Kitchener at Queen St and Weber St, across from the Kitchener Main Public Library. 74 Queen St North, Kitchener, Ontario.">
+  <PageIntro title="Our newly renovated offices" lede="Recently renovated to serve you better. Our new, centrally located lab is in downtown Kitchener at Queen Street and Weber Street, across from the Kitchener Main Public Library." />
+  <section class="section">
+    <div class="wrap">
+      <ul class="photos">
+        {photos.map((p) => (
+          <li class:list={[p.cls]} data-reveal>
+            <figure class="ph"><Image src={p.src} alt={p.alt} widths={[480, 800]} sizes="(max-width: 700px) 100vw, 50vw" /><figcaption>{p.alt}</figcaption></figure>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+  <VisitBand heading="Find the lab" map />
+</Base>
+<style>
+  .photos { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  .photos .wide { grid-column: span 2; }
+  .photos .full { grid-column: 1 / -1; }
+  .full .ph :global(img) { aspect-ratio: 21 / 9; }
+  .ph { margin: 0; height: 100%; display: flex; flex-direction: column; background: var(--paper); border: 1px solid var(--line); padding: 8px; }
+  .ph :global(img) { width: 100%; flex: 1; min-height: 0; aspect-ratio: 4 / 3; object-fit: cover; }
+  .wide .ph :global(img) { aspect-ratio: auto; height: 100%; max-height: 520px; }
+  .ph figcaption { font-size: 0.8125rem; color: var(--muted); padding: 0.65rem 0.25rem 0.15rem; }
+  @media (max-width: 900px) { .photos { grid-template-columns: 1fr 1fr; } .photos .wide { grid-column: 1 / -1; } }
+  @media (max-width: 600px) { .photos { grid-template-columns: 1fr; } .photos .wide, .photos .full { grid-column: auto; } .wide .ph :global(img), .full .ph :global(img) { aspect-ratio: 4 / 3; } }
+</style>

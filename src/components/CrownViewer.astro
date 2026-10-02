@@ -1,0 +1,68 @@
+---
+// Interactive 3D crown. three.js loads only when the viewer scrolls near the screen.
+import Icon from './Icon.astro';
+interface Props { mode?: 'hero' | 'demo'; label?: string }
+const { mode = 'demo', label = 'Rotatable 3D model of a molar crown' } = Astro.props;
+---
+<div class:list={['viewer', `viewer-${mode}`]} data-crown={mode} role="img" aria-label={label}>
+  <svg class="fallback" viewBox="0 0 200 160" aria-hidden="true">
+    <path d="M40 70c0-30 18-40 34-32 8 4 16 4 26-2 10-6 22-6 32 2 14-8 30 0 30 30 0 22-8 34-10 52-2 16-8 22-14 22H64c-6 0-12-6-14-22-2-18-10-28-10-50Z" fill="none" stroke="currentColor" stroke-width="1.5" />
+    <path d="M52 132c30 8 66 8 96 0" fill="none" stroke="currentColor" stroke-dasharray="3 4" />
+  </svg>
+  {mode === 'demo' && (
+    <div class="tools">
+      <button type="button" data-zoom="1" aria-label="Zoom in"><Icon name="plus" /></button>
+      <button type="button" data-zoom="-1" aria-label="Zoom out"><Icon name="minus" /></button>
+      <button type="button" data-reset aria-label="Reset view"><Icon name="rotate" /></button>
+    </div>
+  )}
+  <p class="hint mono" aria-hidden="true"><Icon name="rotate" />Drag to rotate</p>
+</div>
+
+<script>
+  import type { mountCrown as Mount } from '../scripts/crown';
+  type Api = ReturnType<typeof Mount>;
+  const apis = new WeakMap<HTMLElement, Api>();
+  const ready = new Map<HTMLElement, ((api: Api) => void)[]>();
+  // demos elsewhere on the page talk to the viewer through this event
+  document.addEventListener('crown:step', (e) => {
+    const { el, step } = (e as CustomEvent).detail as { el: HTMLElement; step: number };
+    const api = apis.get(el);
+    if (api) api.setStep(step); else ready.set(el, [...(ready.get(el) ?? []), (a) => a.setStep(step)]);
+  });
+  function hasGL() {
+    try { const c = document.createElement('canvas'); return !!(c.getContext('webgl2') || c.getContext('webgl')); } catch { return false; }
+  }
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (!e.isIntersecting) continue;
+      io.unobserve(e.target);
+      const el = e.target as HTMLElement;
+      if (!hasGL()) { el.classList.add('no-gl'); continue; }
+      import('../scripts/crown').then(({ mountCrown }) => {
+        const api = mountCrown(el, { mode: el.dataset.crown as 'hero' | 'demo' });
+        apis.set(el, api);
+        (ready.get(el) ?? []).forEach((fn) => fn(api));
+        el.querySelectorAll<HTMLButtonElement>('[data-zoom]').forEach((b) => b.addEventListener('click', () => api.zoom(Number(b.dataset.zoom) as 1 | -1)));
+        el.querySelector('[data-reset]')?.addEventListener('click', () => api.reset());
+      });
+    }
+  }, { rootMargin: '200px' });
+  document.querySelectorAll<HTMLElement>('[data-crown]').forEach((el) => io.observe(el));
+</script>
+
+<style>
+  .viewer { position: relative; width: 100%; height: 100%; min-height: 280px; color: var(--blue-ink); }
+  .viewer :global(canvas) { position: absolute; inset: 0; width: 100% !important; height: 100% !important; cursor: grab; touch-action: pan-y; opacity: 0; transition: opacity 0.9s var(--ease-out); }
+  .viewer :global(canvas:active) { cursor: grabbing; }
+  .viewer.ready :global(canvas) { opacity: 1; }
+  .fallback { position: absolute; inset: 18%; width: 64%; height: 64%; opacity: 0.6; transition: opacity 0.5s; }
+  .viewer.ready .fallback { opacity: 0; }
+  .tools { position: absolute; right: 0.75rem; top: 0.75rem; display: grid; gap: 0.4rem; z-index: 2; }
+  .tools button { width: 40px; height: 40px; display: grid; place-items: center; background: var(--paper); border: 1px solid var(--line-strong); border-radius: 3px; color: var(--navy); cursor: pointer; transition: background-color 0.2s; }
+  .tools button:hover { background: var(--ice-2); }
+  .tools :global(svg) { width: 18px; height: 18px; }
+  .hint { position: absolute; left: 50%; bottom: 0.75rem; translate: -50% 0; display: inline-flex; align-items: center; gap: 0.4rem; margin: 0; font-size: 0.72rem; color: var(--muted); background: rgb(255 255 255 / 0.85); padding: 0.3rem 0.6rem; border-radius: 2px; transition: opacity 0.4s; pointer-events: none; }
+  .hint :global(svg) { width: 13px; height: 13px; }
+  .viewer:not(.ready) .hint, .viewer.touched .hint { opacity: 0; }
+</style>

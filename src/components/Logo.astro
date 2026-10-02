@@ -1,0 +1,11 @@
+---
+import raw from '../assets/brand/logo.svg?raw';
+interface Props { class?: string; variant?: 'navy' | 'white' }
+const { class: cls = '', variant = 'navy' } = Astro.props;
+---
+<span class:list={['logo', `logo-${variant}`, cls]} set:html={raw} />
+<style>
+  .logo { display: block; line-height: 0; }
+  .logo :global(svg) { width: 100%; height: auto; }
+  .logo-white { --logo-ink: #fff; --logo-tag: #dbe8f7; --logo-tooth: #8db6e0; --logo-rule: #8db6e0; }
+</style>

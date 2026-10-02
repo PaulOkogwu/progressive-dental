@@ -1,0 +1,70 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import PageIntro from '../components/PageIntro.astro';
+import VisitBand from '../components/VisitBand.astro';
+import team from '../assets/img/team/7274899.jpg';
+const timeline = [
+  { year: '1994', text: 'Graduates from the three-year dental technology program at George Brown College, Toronto.' },
+  { year: '1994–98', text: 'Moves to Kitchener-Waterloo and gains experience in laboratories across the region.' },
+  { year: '1998', text: 'Earns the Registered Dental Technologist (RDT) designation.' },
+  { year: '1999', text: 'Opens Progressive Dental Studio Inc.' },
+  { year: 'Today', text: 'Continuing education with Millennium Aesthetics, The Toronto Academy of Cosmetic Dentistry, and several study clubs.' },
+];
+---
+<Base title="Our Team" description="Meet the team at Progressive Dental Studio, led by Alex Larach, RDT. Personal, professional service for dental offices in Kitchener-Waterloo since 1999.">
+  <PageIntro title="Our Team" lede="Our friendly and professional team is committed to building long-standing business relationships with each and every customer." />
+
+  <section class="section">
+    <div class="wrap">
+      <figure class="team ticks" data-reveal>
+        <Image src={team} alt="The Progressive Dental Studio team standing outside the lab entrance" widths={[640, 1024]} sizes="(max-width: 1100px) 100vw, 1100px" />
+        <figcaption class="mono">The team outside the lab, 74 Queen St North</figcaption>
+      </figure>
+
+      <div class="bio">
+        <div data-reveal>
+          <h2>Alex Larach, RDT</h2>
+          <p class="role mono">Founder · Registered Dental Technologist</p>
+          <div class="prose">
+            <p>Alex Larach graduated in 1994 from a three-year dental technology program at George Brown College in Toronto, Ontario. Soon after, Alex relocated to the Kitchener-Waterloo area, gaining valuable experience in different laboratories across the region.</p>
+            <p>Alex received the Registered Dental Technologist designation in 1998 with the vision of operating his own dental laboratory. That dream came true when Progressive Dental Studio Inc. opened its doors in 1999.</p>
+            <p>Alex has continued developing his skills through numerous training courses and continuous improvement sessions, such as Millennium Aesthetics and The Toronto Academy of Cosmetic Dentistry, as well as several study clubs.</p>
+          </div>
+        </div>
+        <ol class="ruler" data-reveal aria-label="Alex Larach's career">
+          {timeline.map((t) => (<li><span class="yr mono">{t.year}</span><span>{t.text}</span></li>))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="values">
+    <div class="wrap values-grid">
+      <p class="big" data-reveal>Every dental office is unique. We take the time to understand your individual needs.</p>
+      <p data-reveal>Our team works together to provide you with the best quality products and service in the industry, the kind that will have you coming back again and again.</p>
+    </div>
+  </section>
+
+  <VisitBand />
+</Base>
+<style>
+  .team { margin: 0 0 clamp(3rem, 6vw, 5rem); background: var(--paper); padding: 10px; border: 1px solid var(--line); }
+  .team :global(img) { width: 100%; }
+  .team figcaption { padding: 0.7rem 0.25rem 0.1rem; color: var(--muted); font-size: 0.75rem; }
+  .bio { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(2rem, 6vw, 5.5rem); }
+  .bio h2 { margin-bottom: 0.5rem; }
+  .role { color: var(--blue-ink); margin-bottom: 1.5rem; }
+  .ruler { list-style: none; margin: 0; padding: 0 0 0 1.5rem; position: relative; align-self: start; }
+  .ruler::before { content: ''; position: absolute; left: 0; top: 0.5rem; bottom: 0.5rem; width: 9px;
+    background: linear-gradient(var(--navy), var(--navy)) left / 1px 100% no-repeat, repeating-linear-gradient(var(--navy) 0 1px, transparent 1px 12px) left / 6px 100% no-repeat; }
+  .ruler li { position: relative; display: grid; gap: 0.2rem; padding: 0 0 1.6rem 0.75rem; }
+  .ruler li::before { content: ''; position: absolute; left: calc(-1.5rem - 4px); top: 0.45rem; width: 9px; height: 9px; border-radius: 50%; background: var(--paper); border: 1.5px solid var(--navy); }
+  .ruler li:last-child { padding-bottom: 0; }
+  .yr { font-weight: 600; color: var(--navy); font-size: 0.875rem; }
+  .values { background: var(--navy-ink); color: #dbe5f5; padding-block: clamp(3.5rem, 7vw, 6rem); }
+  .values-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: end; }
+  .big { font-family: var(--display); font-stretch: 112%; font-size: clamp(1.6rem, 3vw, 2.5rem); font-weight: 620; line-height: 1.15; letter-spacing: -0.015em; color: #fff; margin: 0; }
+  .values p:not(.big) { margin: 0; max-width: 46ch; }
+  @media (max-width: 900px) { .bio, .values-grid { grid-template-columns: 1fr; } }
+</style>

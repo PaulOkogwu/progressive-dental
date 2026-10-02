@@ -1,0 +1,139 @@
+@import '@fontsource-variable/archivo/wdth.css';
+@import '@fontsource-variable/geist';
+@import '@fontsource-variable/geist-mono';
+
+:root {
+  --ice: #edf4fb;
+  --ice-2: #dfecf8;
+  --blue: #8db6e0;           /* brand light blue: structure fields */
+  --blue-2: #bcd6f0;
+  --blue-ink: #3d6ea8;       /* blue that passes as text on white */
+  --navy: #1f2a7a;           /* logo navy: type and every action */
+  --navy-ink: #131a4d;
+  --text: #1a2250;
+  --muted: #47527f;
+  --paper: #ffffff;
+  --grey: #8c929b;
+  --line: rgb(31 42 122 / 0.16);
+  --line-strong: rgb(31 42 122 / 0.32);
+  --grid-minor: rgb(31 42 122 / 0.045);
+  --grid-major: rgb(31 42 122 / 0.085);
+
+  --display: 'Archivo Variable', 'Archivo', system-ui, sans-serif;
+  --sans: 'Geist Variable', 'Geist', system-ui, sans-serif;
+  --mono: 'Geist Mono Variable', 'Geist Mono', ui-monospace, monospace;
+
+  --gutter: clamp(1rem, 4vw, 3rem);
+  --max: 1240px;
+  --section: clamp(4.5rem, 9vw, 8rem);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --header-h: 76px;
+  color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--header-h) + 1rem); }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+body {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--text);
+  background-color: var(--ice);
+  /* the drafting grid every page sits on */
+  background-image:
+    linear-gradient(var(--grid-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+    linear-gradient(var(--grid-minor) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px);
+  background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px;
+  background-position: -1px -1px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  caret-color: var(--navy);
+  accent-color: var(--navy);
+  overflow-x: clip;
+}
+::selection { background: var(--navy); color: #fff; }
+html { scrollbar-color: var(--blue) var(--ice); }
+
+img, svg, canvas { display: block; max-width: 100%; }
+img { height: auto; }
+a { color: var(--navy); text-decoration-thickness: 1px; text-underline-offset: 0.22em; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--navy); outline-offset: 3px; border-radius: 2px; }
+p { margin: 0 0 1em; text-wrap: pretty; }
+
+h1, h2, h3 {
+  font-family: var(--display);
+  font-stretch: 112%;
+  color: var(--navy);
+  margin: 0;
+  text-wrap: balance;
+}
+.display { font-size: clamp(2.5rem, 6.4vw, 5.6rem); font-weight: 680; line-height: 0.98; letter-spacing: -0.03em; }
+h2, .h2 { font-size: clamp(1.9rem, 3.8vw, 3.25rem); font-weight: 660; line-height: 1.04; letter-spacing: -0.022em; }
+h3, .h3 { font-size: clamp(1.3rem, 1.8vw, 1.6rem); font-weight: 640; line-height: 1.15; letter-spacing: -0.01em; }
+.lede { font-size: clamp(1.125rem, 1.5vw, 1.3rem); line-height: 1.55; color: var(--muted); max-width: 46ch; }
+.prose { max-width: 66ch; }
+.mono { font-family: var(--mono); font-size: 0.8125rem; letter-spacing: 0.01em; font-variant-numeric: tabular-nums; }
+
+.wrap { width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; }
+.section { padding-block: var(--section); }
+.skip { position: absolute; left: -9999px; top: 0; }
+.skip:focus { left: 1rem; top: 1rem; z-index: 100; background: var(--paper); padding: 0.6rem 1rem; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* buttons: navy is reserved for action */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  min-height: 48px; padding: 0.75rem 1.3rem;
+  font: 600 1rem/1 var(--sans);
+  border-radius: 3px; border: 1px solid var(--navy);
+  text-decoration: none; cursor: pointer;
+  transition: background-color 0.2s var(--ease-out), color 0.2s var(--ease-out), transform 0.15s var(--ease-out), box-shadow 0.2s var(--ease-out);
+}
+.btn svg { width: 18px; height: 18px; flex: none; }
+.btn-primary { background: var(--navy); color: #fff; box-shadow: 0 6px 16px -8px rgb(19 26 77 / 0.55); }
+.btn-primary:hover { background: var(--navy-ink); box-shadow: 0 10px 22px -10px rgb(19 26 77 / 0.6); }
+.btn-ghost { background: var(--paper); color: var(--navy); }
+.btn-ghost:hover { background: var(--ice-2); }
+.btn:active { transform: translateY(1px) scale(0.99); }
+.btn[disabled] { opacity: 0.55; cursor: progress; }
+.actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+/* paper panel with drafting crop marks at the corners */
+.sheet { position: relative; background: var(--paper); border: 1px solid var(--line); }
+.ticks { position: relative; }
+.ticks::before {
+  content: ''; position: absolute; inset: -9px; pointer-events: none;
+  --t: 14px; --c: var(--navy);
+  background:
+    linear-gradient(var(--c), var(--c)) top left / var(--t) 1px,
+    linear-gradient(var(--c), var(--c)) top left / 1px var(--t),
+    linear-gradient(var(--c), var(--c)) top right / var(--t) 1px,
+    linear-gradient(var(--c), var(--c)) top right / 1px var(--t),
+    linear-gradient(var(--c), var(--c)) bottom left / var(--t) 1px,
+    linear-gradient(var(--c), var(--c)) bottom left / 1px var(--t),
+    linear-gradient(var(--c), var(--c)) bottom right / var(--t) 1px,
+    linear-gradient(var(--c), var(--c)) bottom right / 1px var(--t);
+  background-repeat: no-repeat;
+}
+
+/* dimension line: |←—— label ——→| */
+.dim { display: flex; align-items: center; gap: 0.75rem; color: var(--blue-ink); }
+.dim::before, .dim::after { content: ''; flex: 1; height: 9px; border-block: 0 solid; background: linear-gradient(currentColor, currentColor) center / 100% 1px no-repeat; border-inline: 1px solid currentColor; }
+
+/* measurement callout with leader */
+.callout { display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--mono); font-size: 0.78rem; color: var(--navy); white-space: nowrap; }
+.callout::before { content: ''; width: 7px; height: 7px; border-radius: 50%; border: 1.5px solid var(--navy); background: var(--paper); flex: none; }
+
+.photo { background: var(--ice-2); overflow: hidden; }
+.photo img { width: 100%; height: 100%; object-fit: cover; }
+
+/* reveal: content is visible by default; motion only refines it */
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-reveal] { opacity: 0; transform: translateY(14px); transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out); }
+  .js [data-reveal].in { opacity: 1; transform: none; }
+}

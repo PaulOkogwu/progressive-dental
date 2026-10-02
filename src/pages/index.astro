@@ -1,0 +1,167 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import CrownViewer from '../components/CrownViewer.astro';
+import VisitBand from '../components/VisitBand.astro';
+import { site, url } from '../data/site';
+import { services, digital } from '../data/services';
+import smileA from '../assets/img/welcome/3243333.jpg';
+import smileB from '../assets/img/welcome/6011890.jpg';
+import portrait from '../assets/img/welcome/3762354.jpg';
+const index = [...services, { ...digital, isNew: true }];
+---
+<Base title="Welcome" description="Progressive Dental Studio Inc. is a full-service dental laboratory in downtown Kitchener, Ontario, serving dental professionals since 1999. Dentures, e.max, PFM, implants, zirconia and digital 3Shape work.">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <h1 class="display">Committed to excellence through service and technology.</h1>
+        <p class="lede">A full-service dental laboratory in downtown Kitchener, providing consistently high quality, personal service to the dental profession since 1999.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href={site.phone.href}><Icon name="phone" />Call {site.phone.label}</a>
+          <a class="btn btn-ghost" href={`mailto:${site.email}`}><Icon name="mail" />Email the lab</a>
+        </div>
+        <dl class="hours-mini mono">
+          {site.hours.slice(0, 2).map((h) => (<div><dt>{h.short}</dt><dd>{h.time}</dd></div>))}
+        </dl>
+      </div>
+      <figure class="hero-plate sheet ticks">
+        <CrownViewer mode="hero" label="Rotating 3D model of a molar crown, drawn in code" />
+        <span class="callout c1">Est. 1999</span>
+        <span class="callout c2">RDT-led laboratory</span>
+        <span class="callout c3">Kitchener, ON</span>
+        <figcaption class="mono">Molar crown · margin line in blue</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <div class="wrap"><p class="dim mono" aria-hidden="true">1999 — today · {new Date().getFullYear() - 1999} years in Kitchener</p></div>
+
+  <section class="section welcome">
+    <div class="wrap welcome-grid">
+      <div class="welcome-copy" data-reveal>
+        <h2>Welcome to Progressive Dental Studio Inc.</h2>
+        <div class="prose">
+          <p>Since 1999, Progressive Dental Studio has provided consistently high quality, personal service to the professional dental industry.</p>
+          <p>Our products and services have a well-known reputation for customer focus and attention to detail. Our dedicated team of highly trained technicians is focused on meeting your requirements.</p>
+          <p>Your patients’ needs are our top priority: a quality finished product, delivered efficiently and on time.</p>
+        </div>
+        <a class="link-arrow" href={url('our-team.html')}>Meet the team <Icon name="arrow" /></a>
+      </div>
+      <div class="specimens" data-reveal>
+        <figure class="sp sp-a ticks"><Image src={portrait} alt="Smiling woman with bright, natural-looking teeth" /></figure>
+        <figure class="sp sp-b ticks"><Image src={smileB} alt="Close-up of a broad smile with even, white teeth" /></figure>
+        <figure class="sp sp-c ticks"><Image src={smileA} alt="Close-up of a natural smile" /></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section index-section">
+    <div class="wrap">
+      <div class="index-head" data-reveal>
+        <h2>What we make</h2>
+        <p class="lede">Ten lines of work, from complete dentures to implant rehabilitation, now with a digital 3Shape workflow.</p>
+      </div>
+      <ol class="index" data-reveal>
+        {index.map((s) => (
+          <li>
+            <a href={url(`products--services.html#${s.id}`)}>
+              <span class="nm">{s.name}{'isNew' in s && <em class="new mono">New</em>}</span>
+              <span class="sp-line mono">{s.short}</span>
+              <Icon name="arrow" class="go" />
+            </a>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="digital">
+    <div class="wrap digital-grid">
+      <div data-reveal>
+        <h2>Now working digitally with 3Shape.</h2>
+        <p>Send a digital impression from your intraoral scanner. We design the restoration in 3Shape software and produce it here in the lab, for a precise fit and a faster turnaround.</p>
+        <a class="btn btn-primary" href={url('products--services.html#digital-3shape')}>Try the interactive demo <Icon name="arrow" /></a>
+      </div>
+      <ol class="flow mono" data-reveal aria-label="Digital workflow">
+        <li><b>Scan</b><span>Digital impression</span></li>
+        <li><b>Design</b><span>3Shape software</span></li>
+        <li><b>Make</b><span>Milled or pressed</span></li>
+        <li><b>Deliver</b><span>Precise fit</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <VisitBand />
+</Base>
+
+<style>
+  .hero { padding-block: clamp(2.5rem, 6vw, 5rem) clamp(2.5rem, 5vw, 4rem); }
+  .hero-grid { display: grid; grid-template-columns: 7fr 5fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; }
+  .hero-copy .display { font-size: clamp(2.5rem, 5.2vw, 4.6rem); max-width: 14ch; margin-bottom: 1.5rem; }
+  .hero-copy .lede { margin-bottom: 2rem; }
+  .hours-mini { display: flex; flex-wrap: wrap; gap: 0.5rem 1.75rem; margin: 2rem 0 0; padding-top: 1rem; border-top: 1px solid var(--line); color: var(--muted); }
+  .hours-mini div { display: flex; gap: 0.6rem; }
+  .hours-mini dt { color: var(--navy); font-weight: 600; }
+  .hours-mini dd { margin: 0; }
+
+  .hero-plate { margin: 0; aspect-ratio: 1 / 1.02; background:
+    radial-gradient(circle at 50% 45%, #fff 0 38%, transparent 70%),
+    linear-gradient(var(--grid-major) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, var(--grid-major) 1px, transparent 1px) 0 0 / 24px 24px, var(--paper); }
+  .hero-plate .callout { position: absolute; z-index: 2; pointer-events: none; }
+  .hero-plate .callout::after { content: ''; position: absolute; height: 1px; background: var(--navy); opacity: 0.5; }
+  .c1 { top: 12%; left: 6%; } .c1::after { left: 100%; top: 50%; width: 44px; margin-left: 6px; }
+  .c2 { top: 30%; right: 5%; } .c2::before { order: 2; } .c2::after { right: 100%; top: 50%; width: 36px; margin-right: 6px; }
+  .c3 { bottom: 13%; left: 6%; }
+  .hero-plate figcaption { position: absolute; left: 1rem; top: 0.9rem; color: var(--muted); font-size: 0.7rem; }
+
+  .dim { margin: 0; font-size: 0.75rem; }
+
+  .welcome-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2.5rem, 6vw, 6rem); align-items: center; }
+  .welcome-copy h2 { margin-bottom: 1.5rem; max-width: 15ch; }
+  .link-arrow { display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 600; text-decoration: none; padding-block: 0.4rem; }
+  .link-arrow :global(svg) { width: 18px; height: 18px; transition: transform 0.25s var(--ease-out); }
+  .link-arrow:hover :global(svg) { transform: translateX(4px); }
+  .specimens { display: grid; grid-template-columns: repeat(6, 1fr); grid-template-rows: auto auto; gap: 1.5rem; }
+  .sp { margin: 0; background: var(--paper); padding: 8px; border: 1px solid var(--line); }
+  .sp :global(img) { width: 100%; height: 100%; object-fit: cover; }
+  .sp-a { grid-column: 1 / 4; grid-row: 1 / 3; }
+  .sp-b { grid-column: 4 / 7; aspect-ratio: 453 / 376; }
+  .sp-c { grid-column: 4 / 7; aspect-ratio: 309 / 232; }
+
+  .index-section { padding-top: 0; }
+  .index-head { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: end; margin-bottom: 2.25rem; }
+  .index { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line-strong); background: rgb(255 255 255 / 0.6); }
+  .index a { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) 24px; align-items: center; gap: 1.25rem; padding: 1.15rem 0.75rem; border-bottom: 1px solid var(--line); text-decoration: none; color: var(--text); transition: background-color 0.25s var(--ease-out); }
+  .index a:hover { background: var(--paper); }
+  .nm { font-family: var(--display); font-stretch: 108%; font-size: clamp(1.1rem, 1.6vw, 1.35rem); font-weight: 620; color: var(--navy); display: flex; align-items: center; gap: 0.75rem; }
+  .new { font-style: normal; font-size: 0.68rem; background: var(--blue); color: var(--navy-ink); padding: 0.15rem 0.45rem; border-radius: 2px; }
+  .sp-line { color: var(--muted); }
+  .go { width: 20px; height: 20px; color: var(--navy); transition: transform 0.25s var(--ease-out); }
+  .index a:hover .go { transform: translateX(4px); }
+
+  .digital { background: var(--blue); padding-block: clamp(3.5rem, 7vw, 6rem); position: relative; overflow: hidden; }
+  .digital-grid { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+  .digital h2 { color: var(--navy-ink); margin-bottom: 1.1rem; max-width: 14ch; }
+  .digital p { color: var(--navy-ink); max-width: 48ch; margin-bottom: 1.75rem; }
+  .flow { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); position: relative; }
+  .flow::before { content: ''; position: absolute; left: 12.5%; right: 12.5%; top: 21px; height: 1px; background: var(--navy-ink); }
+  .flow li { position: relative; display: grid; justify-items: center; text-align: center; gap: 0.35rem; color: var(--navy-ink); }
+  .flow li::before { content: ''; width: 42px; height: 42px; border-radius: 50%; background: var(--paper); border: 1px solid var(--navy-ink); box-shadow: inset 0 0 0 6px var(--paper), inset 0 0 0 7px var(--blue); margin-bottom: 0.5rem; }
+  .flow b { font-family: var(--display); font-stretch: 108%; font-size: 1.05rem; font-weight: 650; }
+  .flow span { font-size: 0.72rem; }
+
+  @media (max-width: 960px) {
+    .hero-grid, .welcome-grid, .digital-grid, .index-head { grid-template-columns: 1fr; }
+    .hero-plate { max-width: 520px; width: 100%; justify-self: center; }
+    .index a { grid-template-columns: minmax(0, 1fr) 20px; row-gap: 0.3rem; }
+    .sp-line { grid-column: 1; grid-row: 2; }
+    .go { grid-column: 2; grid-row: 1 / 3; }
+  }
+  @media (max-width: 560px) {
+    .c2 { display: none; }
+    .flow { grid-template-columns: 1fr 1fr; row-gap: 1.75rem; }
+    .flow::before { display: none; }
+  }
+</style>

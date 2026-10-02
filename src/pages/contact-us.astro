@@ -1,0 +1,143 @@
+---
+import Base from '../layouts/Base.astro';
+import PageIntro from '../components/PageIntro.astro';
+import MapEmbed from '../components/MapEmbed.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/site';
+---
+<Base title="Contact Us" description="Contact Progressive Dental Studio in Kitchener: 519-893-4010, toll free 800-265-2382, lab@progressivedental.ca. Open Monday to Thursday 8:30 am to 5 pm, Friday 8:30 am to 2 pm.">
+  <PageIntro title="Contact Us" lede="Send us a message and the lab will get back to you. For anything urgent, please call." />
+
+  <section class="section">
+    <div class="wrap contact-grid">
+      <form class="form sheet ticks" data-form novalidate>
+        <input type="hidden" name="access_key" value={site.web3formsKey} />
+        <input type="hidden" name="subject" value="New message from the Progressive Dental website" />
+        <input type="hidden" name="from_name" value="progressivedental.ca" />
+        <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <fieldset>
+          <legend class="h3">Send a message</legend>
+          <div class="row2">
+            <label class="field"><span>First name <b aria-hidden="true">*</b></span><input name="first_name" autocomplete="given-name" required /><em class="err" aria-live="polite"></em></label>
+            <label class="field"><span>Last name <b aria-hidden="true">*</b></span><input name="last_name" autocomplete="family-name" required /><em class="err" aria-live="polite"></em></label>
+          </div>
+          <label class="field"><span>Email <b aria-hidden="true">*</b></span><input name="email" type="email" autocomplete="email" inputmode="email" required /><em class="err" aria-live="polite"></em></label>
+          <label class="field"><span>Message <b aria-hidden="true">*</b></span><textarea name="message" rows="6" required></textarea><em class="err" aria-live="polite"></em></label>
+          <p class="req mono">* required</p>
+          <button class="btn btn-primary send" type="submit"><Icon name="mail" /><span data-label>Send message</span></button>
+          <p class="status" data-status role="status" aria-live="polite"></p>
+        </fieldset>
+        <div class="sent" data-sent hidden tabindex="-1">
+          <span class="ok"><Icon name="check" /></span>
+          <h2 class="h3">Message sent</h2>
+          <p>Thank you. Your message is on its way to {site.email}. We’ll reply during business hours.</p>
+          <button type="button" class="btn btn-ghost" data-again>Send another message</button>
+        </div>
+      </form>
+
+      <aside class="facts">
+        <h2 class="h3">Progressive Dental Studio Inc.</h2>
+        <ul class="lines">
+          <li><Icon name="pin" /><span>{site.address.street}<br />{site.address.city}, {site.address.region} {site.address.postal}</span></li>
+          <li><Icon name="phone" /><span><a href={site.phone.href}>{site.phone.label}</a></span></li>
+          <li><Icon name="phone" /><span><a href={site.tollFree.href}>{site.tollFree.label}</a> <span class="muted">toll free</span></span></li>
+          <li><Icon name="mail" /><span><a href={`mailto:${site.email}`}>{site.email}</a></span></li>
+        </ul>
+        <h3 class="hh mono">Business hours</h3>
+        <dl class="hours">
+          {site.hours.map((h) => (<div><dt>{h.days}</dt><dd class="mono">{h.time}</dd></div>))}
+        </dl>
+      </aside>
+    </div>
+    <div class="wrap map-wrap"><MapEmbed /></div>
+  </section>
+</Base>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-form]')!;
+  const status = form.querySelector<HTMLElement>('[data-status]')!;
+  const sent = form.querySelector<HTMLElement>('[data-sent]')!;
+  const fieldset = form.querySelector('fieldset')!;
+  const btn = form.querySelector<HTMLButtonElement>('.send')!;
+  const label = btn.querySelector('[data-label]')!;
+  const messages: Record<string, string> = {
+    first_name: 'Please enter your first name.', last_name: 'Please enter your last name.',
+    email: 'Please enter an email address we can reply to, like name@office.ca.', message: 'Please write a short message.',
+  };
+  function check(el: HTMLInputElement | HTMLTextAreaElement) {
+    const err = el.parentElement!.querySelector('.err')!;
+    const ok = el.checkValidity() && el.value.trim() !== '';
+    err.textContent = ok ? '' : messages[el.name];
+    el.setAttribute('aria-invalid', String(!ok));
+    return ok;
+  }
+  const fields = [...form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('input[required], textarea[required]')];
+  fields.forEach((f) => f.addEventListener('blur', () => { if (f.value) check(f); }));
+  fields.forEach((f) => f.addEventListener('input', () => { if (f.getAttribute('aria-invalid') === 'true') check(f); }));
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const bad = fields.filter((f) => !check(f));
+    if (bad.length) { bad[0].focus(); return; }
+    const data = Object.fromEntries(new FormData(form));
+    if (!data.access_key) { status.textContent = 'The form isn’t connected yet. Please email lab@progressivedental.ca or call 519-893-4010.'; status.className = 'status error'; return; }
+    btn.disabled = true; label.textContent = 'Sending…'; status.textContent = ''; status.className = 'status';
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ ...data, name: `${data.first_name} ${data.last_name}` }),
+      });
+      const json = await res.json();
+      if (!res.ok || !json.success) throw new Error(json.message || 'Send failed');
+      fieldset.hidden = true; sent.hidden = false; sent.focus(); form.reset();
+    } catch {
+      status.textContent = 'Your message didn’t send. Please try again, or email lab@progressivedental.ca directly.';
+      status.className = 'status error';
+    } finally { btn.disabled = false; label.textContent = 'Send message'; }
+  });
+  form.querySelector('[data-again]')!.addEventListener('click', () => { sent.hidden = true; fieldset.hidden = false; fields[0].focus(); });
+</script>
+
+<style>
+  .contact-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: start; }
+  .form { padding: clamp(1.5rem, 4vw, 2.75rem); }
+  fieldset { border: 0; margin: 0; padding: 0; display: grid; gap: 1.2rem; min-width: 0; }
+  fieldset[hidden] { display: none; }
+  legend { padding: 0; margin-bottom: 1.4rem; font-family: var(--display); font-stretch: 112%; color: var(--navy); }
+  .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  .field { display: grid; gap: 0.4rem; }
+  .field > span { font-size: 0.9375rem; font-weight: 560; color: var(--navy-ink); }
+  .field b { color: var(--blue-ink); font-weight: 600; }
+  input:not([type='checkbox']):not([type='hidden']), textarea {
+    width: 100%; font: inherit; font-size: 1rem; color: var(--text); background: var(--ice); border: 1px solid var(--line-strong); border-radius: 3px; padding: 0.8rem 0.9rem; min-height: 48px;
+    transition: border-color 0.2s, background-color 0.2s, box-shadow 0.2s;
+  }
+  textarea { resize: vertical; min-height: 150px; }
+  input:hover, textarea:hover { border-color: var(--navy); }
+  input:focus, textarea:focus { outline: none; background: var(--paper); border-color: var(--navy); box-shadow: 0 0 0 3px rgb(141 182 224 / 0.55); }
+  [aria-invalid='true'] { border-color: #a8323e !important; background: #fdf3f4 !important; }
+  .err { font-style: normal; font-size: 0.8125rem; color: #a8323e; min-height: 0; }
+  .err:empty { display: none; }
+  .hp { position: absolute; left: -9999px; }
+  .req { margin: -0.4rem 0 0; color: var(--muted); font-size: 0.72rem; }
+  .send { justify-self: start; }
+  .status { margin: 0; font-size: 0.9375rem; }
+  .status:empty { display: none; }
+  .status.error { color: #a8323e; }
+  .sent { display: grid; justify-items: start; gap: 0.75rem; padding-block: 2rem; outline: none; }
+  .sent[hidden] { display: none; }
+  .ok { width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; background: var(--blue); color: var(--navy-ink); }
+  .ok :global(svg) { width: 26px; height: 26px; }
+  .facts h2 { margin-bottom: 1.25rem; }
+  .lines { list-style: none; margin: 0 0 2rem; padding: 0; display: grid; gap: 0.9rem; }
+  .lines li { display: flex; gap: 0.75rem; align-items: flex-start; }
+  .lines :global(svg) { width: 20px; height: 20px; color: var(--blue-ink); flex: none; margin-top: 0.15rem; }
+  .muted { color: var(--muted); font-size: 0.875rem; }
+  .hh { font-family: var(--mono); font-stretch: normal; font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--blue-ink); margin-bottom: 0.75rem; }
+  .hours { margin: 0; border-top: 1px solid var(--line); }
+  .hours div { display: flex; justify-content: space-between; gap: 1rem; padding-block: 0.75rem; border-bottom: 1px solid var(--line); }
+  .hours dd { margin: 0; color: var(--navy); }
+  .map-wrap { margin-top: clamp(3rem, 6vw, 5rem); }
+  @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 520px) { .row2 { grid-template-columns: 1fr; } .send { width: 100%; justify-content: center; } }
+</style>
