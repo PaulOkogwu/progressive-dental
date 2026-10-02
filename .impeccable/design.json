@@ -1,0 +1,143 @@
+{
+ "schemaVersion": 2,
+ "generatedAt": "2026-10-01T21:12:02",
+ "title": "Design System: Progressive Dental Studio",
+ "extensions": {
+  "colorMeta": {
+   "navy": {
+    "role": "primary",
+    "displayName": "Logo Navy"
+   },
+   "blue": {
+    "role": "secondary",
+    "displayName": "Brand Light Blue"
+   },
+   "ice": {
+    "role": "neutral",
+    "displayName": "Ice Ground"
+   },
+   "blue-ink": {
+    "role": "secondary",
+    "displayName": "Blue Ink"
+   }
+  },
+  "typographyMeta": {
+   "display": {
+    "displayName": "Display",
+    "purpose": "Page and hero headlines, Archivo semi-expanded."
+   },
+   "measure": {
+    "displayName": "Measure",
+    "purpose": "Specs, hours, labels: values a dentist reads."
+   }
+  },
+  "shadows": [
+   {
+    "name": "button",
+    "value": "0 6px 16px -8px rgb(19 26 77 / 0.55)",
+    "purpose": "Primary button lift."
+   },
+   {
+    "name": "header",
+    "value": "0 8px 24px -18px rgb(19 26 77 / 0.5)",
+    "purpose": "Sticky header once scrolled."
+   },
+   {
+    "name": "tile-hover",
+    "value": "0 18px 36px -24px rgb(19 26 77 / 0.45)",
+    "purpose": "Gallery tile hover."
+   }
+  ],
+  "motion": [
+   {
+    "name": "ease-out",
+    "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+    "purpose": "All transitions and reveals."
+   },
+   {
+    "name": "reveal",
+    "value": "opacity + translateY(14px), 0.7s",
+    "purpose": "Section entrance; content visible without JS."
+   }
+  ],
+  "breakpoints": [
+   {
+    "name": "xs",
+    "value": "560px"
+   },
+   {
+    "name": "md",
+    "value": "960px"
+   },
+   {
+    "name": "lg",
+    "value": "1100px"
+   }
+  ]
+ },
+ "components": [
+  {
+   "name": "Primary Button",
+   "kind": "button",
+   "refersTo": "button-primary",
+   "description": "Every main action: call, send, next step.",
+   "html": "<button class=\"ds-btn\">Call 519-893-4010</button>",
+   "css": ".ds-btn{background:#1f2a7a;color:#fff;border:1px solid #1f2a7a;border-radius:3px;min-height:48px;padding:.75rem 1.3rem;font:600 1rem/1 Geist,system-ui,sans-serif;box-shadow:0 6px 16px -8px rgb(19 26 77/.55)}.ds-btn:hover{background:#131a4d}"
+  },
+  {
+   "name": "Ghost Button",
+   "kind": "button",
+   "refersTo": "button-ghost",
+   "description": "Secondary action beside a primary.",
+   "html": "<button class=\"ds-ghost\">Email the lab</button>",
+   "css": ".ds-ghost{background:#fff;color:#1f2a7a;border:1px solid #1f2a7a;border-radius:3px;min-height:48px;padding:.75rem 1.3rem;font:600 1rem/1 Geist,system-ui,sans-serif}.ds-ghost:hover{background:#dfecf8}"
+  },
+  {
+   "name": "Field",
+   "kind": "input",
+   "refersTo": "input",
+   "description": "Contact form fields.",
+   "html": "<input class=\"ds-in\" placeholder=\"Email\">",
+   "css": ".ds-in{background:#edf4fb;border:1px solid rgb(31 42 122/.32);border-radius:3px;padding:.8rem .9rem;min-height:48px;font:1rem Geist,system-ui,sans-serif;color:#1a2250}.ds-in:focus{outline:none;background:#fff;border-color:#1f2a7a;box-shadow:0 0 0 3px rgb(141 182 224/.55)}"
+  },
+  {
+   "name": "Measurement Callout",
+   "kind": "custom",
+   "refersTo": "",
+   "description": "Spec value with a leader dot.",
+   "html": "<span class=\"ds-co\">e.max Press \u00b7 400 MPa</span>",
+   "css": ".ds-co{display:inline-flex;align-items:center;gap:.5rem;font:.78rem 'Geist Mono',monospace;color:#1f2a7a}.ds-co:before{content:'';width:7px;height:7px;border-radius:50%;border:1.5px solid #1f2a7a;background:#fff}"
+  }
+ ],
+ "narrative": {
+  "northStar": "Precision drawing",
+  "overview": "A pale drafting grid, white sheets with crop ticks, navy type and actions, light blue structure fields, and a rotatable procedural crown as the signature.",
+  "keyCharacteristics": [
+   "Drafting grid ground",
+   "Crop-tick sheets",
+   "Navy acts, blue structures",
+   "Mono only for measurements",
+   "3D crown demo"
+  ],
+  "rules": [
+   {
+    "name": "Navy acts, blue structures",
+    "body": "Clickable means navy; light blue fills regions only.",
+    "section": "colors"
+   },
+   {
+    "name": "Mono is a measurement",
+    "body": "Mono only where a value is read.",
+    "section": "typography"
+   }
+  ],
+  "dos": [
+   "Keep call and email one screen away on every page",
+   "Label demos as illustrative"
+  ],
+  "donts": [
+   "No eyebrows, gradient text, glass, emoji icons",
+   "No invented claims"
+  ]
+ }
+}
