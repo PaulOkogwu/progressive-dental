@@ -16,7 +16,7 @@ const { mode = 'demo', label = 'Rotatable 3D model of a molar crown' } = Astro.p
       <button type="button" data-reset aria-label="Reset view"><Icon name="rotate" /></button>
     </div>
   )}
-  <p class="hint mono" aria-hidden="true"><Icon name="rotate" />Drag to rotate</p>
+  <p class="hint" aria-hidden="true"><Icon name="rotate" />Drag to rotate</p>
 </div>
 
 <script>
@@ -62,7 +62,7 @@ const { mode = 'demo', label = 'Rotatable 3D model of a molar crown' } = Astro.p
   .tools button { width: 40px; height: 40px; display: grid; place-items: center; background: var(--paper); border: 1px solid var(--line-strong); border-radius: 3px; color: var(--navy); cursor: pointer; transition: background-color 0.2s; }
   .tools button:hover { background: var(--ice-2); }
   .tools :global(svg) { width: 18px; height: 18px; }
-  .hint { position: absolute; left: 50%; bottom: 0.75rem; translate: -50% 0; display: inline-flex; align-items: center; gap: 0.4rem; margin: 0; font-size: 0.72rem; color: var(--muted); background: rgb(255 255 255 / 0.85); padding: 0.3rem 0.6rem; border-radius: 2px; transition: opacity 0.4s; pointer-events: none; }
+  .hint { position: absolute; left: 50%; bottom: 0.75rem; translate: -50% 0; display: inline-flex; align-items: center; gap: 0.4rem; margin: 0; font-size: var(--fs-caption); color: var(--muted); background: rgb(255 255 255 / 0.85); padding: 0.3rem 0.6rem; border-radius: 2px; transition: opacity 0.4s; pointer-events: none; }
   .hint :global(svg) { width: 13px; height: 13px; }
   .viewer:not(.ready) .hint, .viewer.touched .hint { opacity: 0; }
 </style>

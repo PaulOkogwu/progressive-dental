@@ -30,7 +30,7 @@ const index = [...services, { ...digital, isNew: true }];
         <span class="callout c1">Est. 1999</span>
         <span class="callout c2">RDT-led laboratory</span>
         <span class="callout c3">Kitchener, ON</span>
-        <figcaption class="mono">Molar crown · margin line in blue</figcaption>
+        <figcaption>Molar crown · margin line in blue</figcaption>
       </figure>
     </div>
   </section>
@@ -67,7 +67,7 @@ const index = [...services, { ...digital, isNew: true }];
           <li>
             <a href={url(`products--services.html#${s.id}`)}>
               <span class="nm">{s.name}{'isNew' in s && <em class="new mono">New</em>}</span>
-              <span class="sp-line mono">{s.short}</span>
+              <span class="sp-line">{s.short}</span>
               <Icon name="arrow" class="go" />
             </a>
           </li>
@@ -79,15 +79,15 @@ const index = [...services, { ...digital, isNew: true }];
   <section class="digital">
     <div class="wrap digital-grid">
       <div data-reveal>
-        <h2>Now working digitally with 3Shape.</h2>
-        <p>Send a digital impression from your intraoral scanner. We design the restoration in 3Shape software and produce it here in the lab, for a precise fit and a faster turnaround.</p>
+        <h2>Digital workflow with 3Shape.</h2>
+        <p>Digital impressions are welcome. See how a digital case moves from scan to finished restoration, and rotate the crown yourself.</p>
         <a class="btn btn-primary" href={url('products--services.html#digital-3shape')}>Try the interactive demo <Icon name="arrow" /></a>
       </div>
-      <ol class="flow mono" data-reveal aria-label="Digital workflow">
-        <li><b>Scan</b><span>Digital impression</span></li>
-        <li><b>Design</b><span>3Shape software</span></li>
-        <li><b>Make</b><span>Milled or pressed</span></li>
-        <li><b>Deliver</b><span>Precise fit</span></li>
+      <ol class="flow" data-reveal aria-label="Digital workflow">
+        <li><svg viewBox="0 0 48 48" aria-hidden="true"><path class="o dots" d="M10 20c0-9 7-12 12-9 2 1 4 1 6 0 5-3 12 0 12 9 0 7-3 10-3 16-1 5-3 7-5 7H18c-2 0-4-2-5-7-1-6-3-9-3-16Z"/><path class="scan" d="M6 27h36"/></svg><b>Scan</b><span>Digital impression</span></li>
+        <li><svg viewBox="0 0 48 48" aria-hidden="true"><path class="o" d="M10 20c0-9 7-12 12-9 2 1 4 1 6 0 5-3 12 0 12 9 0 7-3 10-3 16-1 5-3 7-5 7H18c-2 0-4-2-5-7-1-6-3-9-3-16Z"/><path class="g" d="M11 27h26M13 34h22M24 11v32M17 13v29M31 13v29"/><path class="m" d="M13 40c7 3 15 3 22 0"/></svg><b>Design</b><span>On screen</span></li>
+        <li><svg viewBox="0 0 48 48" aria-hidden="true"><rect class="blk" x="5" y="6" width="38" height="38"/><path class="o" d="M10 20c0-9 7-12 12-9 2 1 4 1 6 0 5-3 12 0 12 9 0 7-3 10-3 16-1 5-3 7-5 7H18c-2 0-4-2-5-7-1-6-3-9-3-16Z"/></svg><b>Make</b><span>Finished and checked</span></li>
+        <li><svg viewBox="0 0 48 48" aria-hidden="true"><path class="o fill" d="M10 20c0-9 7-12 12-9 2 1 4 1 6 0 5-3 12 0 12 9 0 7-3 10-3 16-1 5-3 7-5 7H18c-2 0-4-2-5-7-1-6-3-9-3-16Z"/></svg><b>Deliver</b><span>To your office</span></li>
       </ol>
     </div>
   </section>
@@ -112,11 +112,11 @@ const index = [...services, { ...digital, isNew: true }];
   .hero-plate .callout { position: absolute; z-index: 2; pointer-events: none; }
   .hero-plate .callout::after { content: ''; position: absolute; height: 1px; background: var(--navy); opacity: 0.5; }
   .c1 { top: 12%; left: 6%; } .c1::after { left: 100%; top: 50%; width: 44px; margin-left: 6px; }
-  .c2 { top: 30%; right: 5%; } .c2::before { order: 2; } .c2::after { right: 100%; top: 50%; width: 36px; margin-right: 6px; }
+  .c2 { bottom: 13%; right: 5%; } .c2::before { order: 2; }
   .c3 { bottom: 13%; left: 6%; }
-  .hero-plate figcaption { position: absolute; left: 1rem; top: 0.9rem; color: var(--muted); font-size: 0.7rem; }
+  .hero-plate figcaption { position: absolute; left: 1rem; top: 0.9rem; color: var(--muted); font-size: var(--fs-caption); }
 
-  .dim { margin: 0; font-size: 0.75rem; }
+  .dim { margin: 0; font-size: var(--fs-caption); }
 
   .welcome-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2.5rem, 6vw, 6rem); align-items: center; }
   .welcome-copy h2 { margin-bottom: 1.5rem; max-width: 15ch; }
@@ -136,21 +136,28 @@ const index = [...services, { ...digital, isNew: true }];
   .index a { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) 24px; align-items: center; gap: 1.25rem; padding: 1.15rem 0.75rem; border-bottom: 1px solid var(--line); text-decoration: none; color: var(--text); transition: background-color 0.25s var(--ease-out); }
   .index a:hover { background: var(--paper); }
   .nm { font-family: var(--display); font-stretch: 108%; font-size: clamp(1.1rem, 1.6vw, 1.35rem); font-weight: 620; color: var(--navy); display: flex; align-items: center; gap: 0.75rem; }
-  .new { font-style: normal; font-size: 0.68rem; background: var(--blue); color: var(--navy-ink); padding: 0.15rem 0.45rem; border-radius: 2px; }
-  .sp-line { color: var(--muted); }
+  .new { font-style: normal; font-size: var(--fs-caption); background: var(--blue); color: var(--navy-ink); padding: 0.15rem 0.45rem; border-radius: 2px; }
+  .sp-line { color: var(--muted); font-size: var(--fs-ui); }
   .go { width: 20px; height: 20px; color: var(--navy); transition: transform 0.25s var(--ease-out); }
   .index a:hover .go { transform: translateX(4px); }
 
   .digital { background: var(--blue); padding-block: clamp(3.5rem, 7vw, 6rem); position: relative; overflow: hidden; }
-  .digital-grid { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+  .digital-grid { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 5vw, 5rem); align-items: start; }
   .digital h2 { color: var(--navy-ink); margin-bottom: 1.1rem; max-width: 14ch; }
   .digital p { color: var(--navy-ink); max-width: 48ch; margin-bottom: 1.75rem; }
   .flow { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); position: relative; }
-  .flow::before { content: ''; position: absolute; left: 12.5%; right: 12.5%; top: 21px; height: 1px; background: var(--navy-ink); }
+  .flow { margin-top: 0.4rem; }
+  .flow::before { content: ''; position: absolute; left: 12.5%; right: 12.5%; top: 40px; height: 9px; border-inline: 1px solid var(--navy-ink); background: linear-gradient(var(--navy-ink), var(--navy-ink)) center / 100% 1px no-repeat; }
   .flow li { position: relative; display: grid; justify-items: center; text-align: center; gap: 0.35rem; color: var(--navy-ink); }
-  .flow li::before { content: ''; width: 42px; height: 42px; border-radius: 50%; background: var(--paper); border: 1px solid var(--navy-ink); box-shadow: inset 0 0 0 6px var(--paper), inset 0 0 0 7px var(--blue); margin-bottom: 0.5rem; }
-  .flow b { font-family: var(--display); font-stretch: 108%; font-size: 1.05rem; font-weight: 650; }
-  .flow span { font-size: 0.72rem; }
+  .flow svg { position: relative; width: 84px; height: 84px; padding: 12px; background: var(--paper); border: 1px solid var(--navy-ink); margin-bottom: 0.6rem; fill: none; stroke: var(--navy-ink); stroke-width: 1.4; stroke-linejoin: round; }
+  .flow .dots { stroke-dasharray: 1.5 2.5; stroke-linecap: round; }
+  .flow .scan { stroke: var(--blue-ink); stroke-width: 2; }
+  .flow .g { stroke: var(--blue-ink); stroke-width: 0.7; opacity: 0.7; }
+  .flow .m { stroke: var(--blue-ink); stroke-width: 2; }
+  .flow .blk { stroke-dasharray: 3 3; fill: var(--ice-2); }
+  .flow .fill { fill: var(--ice-2); stroke-width: 1.8; }
+  .flow b { font-family: var(--display); font-stretch: 108%; font-size: var(--fs-lead-sm); font-weight: 650; }
+  .flow span { font-size: var(--fs-caption); }
 
   @media (max-width: 960px) {
     .hero-grid, .welcome-grid, .digital-grid, .index-head { grid-template-columns: 1fr; }

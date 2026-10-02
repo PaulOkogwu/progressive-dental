@@ -33,9 +33,9 @@ const { heading = 'Talk to the lab', map = false } = Astro.props;
   .v-facts { margin: 0; display: grid; gap: 0; align-content: start; }
   .v-facts > div { display: grid; grid-template-columns: 6.5rem 1fr; gap: 1rem; padding-block: 0.95rem; border-bottom: 1px solid var(--line); }
   .v-facts > div:first-child { border-top: 1px solid var(--line); }
-  .v-facts dt { color: var(--blue-ink); font-size: 0.75rem; padding-top: 0.2rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  .v-facts dt { color: var(--blue-ink); font-size: var(--fs-caption); padding-top: 0.2rem; text-transform: uppercase; letter-spacing: 0.06em; }
   .v-facts dd { margin: 0; }
-  .muted { color: var(--muted); font-size: 0.875rem; }
+  .muted { color: var(--muted); font-size: var(--fs-small); }
   .hr { display: grid; grid-template-columns: 1fr auto; gap: 0.25rem 1rem; align-items: baseline; }
   .hr + .hr { margin-top: 0.35rem; }
   .hr .mono { color: var(--muted); }

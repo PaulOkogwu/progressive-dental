@@ -14,6 +14,13 @@ colors:
   paper: "#ffffff"
   grey: "#8c929b"
   error: "#a8323e"
+  error-bg: "#fdf3f4"
+  on-navy: "#dbe5f5"
+  on-navy-muted: "#a9bad6"
+  on-navy-link: "#cfdcf0"
+  on-navy-faint: "#8fa3c4"
+  crown-ivory: "#f3eee4"
+  crown-sheen: "#fff8ec"
 typography:
   display:
     fontFamily: "Archivo Variable, Archivo, system-ui, sans-serif"
@@ -21,6 +28,24 @@ typography:
     fontWeight: 680
     lineHeight: 0.98
     letterSpacing: "-0.03em"
+  page-title:
+    fontFamily: "Archivo Variable, Archivo, system-ui, sans-serif"
+    fontSize: "clamp(2.4rem, 5.4vw, 4.4rem)"
+    fontWeight: 680
+    lineHeight: 1
+    letterSpacing: "-0.03em"
+  hero:
+    fontFamily: "Archivo Variable, Archivo, system-ui, sans-serif"
+    fontSize: "clamp(2.5rem, 5.2vw, 4.6rem)"
+    fontWeight: 680
+    lineHeight: 0.98
+    letterSpacing: "-0.03em"
+  index-name:
+    fontFamily: "Archivo Variable, Archivo, system-ui, sans-serif"
+    fontSize: "clamp(1.1rem, 1.6vw, 1.35rem)"
+    fontWeight: 620
+    lineHeight: 1.2
+    letterSpacing: "normal"
   h2:
     fontFamily: "Archivo Variable, Archivo, system-ui, sans-serif"
     fontSize: "clamp(1.9rem, 3.8vw, 3.25rem)"
@@ -51,6 +76,36 @@ typography:
     fontWeight: 400
     lineHeight: 1.5
     letterSpacing: "0.01em"
+  caption:
+    fontFamily: "Geist Variable, Geist, system-ui, sans-serif"
+    fontSize: "0.75rem"
+    fontWeight: 400
+    lineHeight: 1.4
+    letterSpacing: "normal"
+  small:
+    fontFamily: "Geist Variable, Geist, system-ui, sans-serif"
+    fontSize: "0.875rem"
+    fontWeight: 400
+    lineHeight: 1.5
+    letterSpacing: "normal"
+  ui:
+    fontFamily: "Geist Variable, Geist, system-ui, sans-serif"
+    fontSize: "0.9375rem"
+    fontWeight: 520
+    lineHeight: 1.4
+    letterSpacing: "normal"
+  lead-sm:
+    fontFamily: "Archivo Variable, Archivo, system-ui, sans-serif"
+    fontSize: "1.125rem"
+    fontWeight: 650
+    lineHeight: 1.2
+    letterSpacing: "normal"
+  tag:
+    fontFamily: "Archivo Variable, Archivo, system-ui, sans-serif"
+    fontSize: "1.25rem"
+    fontWeight: 600
+    lineHeight: 1.25
+    letterSpacing: "normal"
 rounded:
   hairline: "2px"
   control: "3px"
@@ -105,6 +160,8 @@ Precision drawing. Every page sits on a pale ice-blue drafting grid (24px minor,
 - **Brand Light Blue** `#8db6e0`: structure only. The top strip, full-width bands (digital workflow), completed-step bars, "New" tag. Never a button.
 - **Blue Ink** `#3d6ea8`: blue that passes as text on white, for labels, dimension lines and the crown's margin line.
 ### Neutral
+- **Crown ivory** `#f3eee4` / sheen `#fff8ec`: the 3D crown's material only.
+- **On navy** `#dbe5f5` body, `#a9bad6` muted, `#cfdcf0` links, `#8fa3c4` faint: text on the navy footer and team band.
 - **Ice** `#edf4fb` page ground with the grid; **Ice 2** `#dfecf8` for image wells and hover fills; **Paper** `#fff` sheets; **Text** `#1a2250`; **Muted** `#47527f`.
 ### Named Rules
 - **Navy acts, blue structures.** If it can be clicked, it is navy. Light blue fills regions, never controls.
@@ -112,7 +169,7 @@ Precision drawing. Every page sits on a pale ice-blue drafting grid (24px minor,
 ## Typography
 Archivo at 108–112% width for headings (semi-expanded, confident), Geist for body, Geist Mono only for measurements, hours, labels and data (never as costume for prose).
 ### Hierarchy
-display 680 / h2 660 / h3 640, tight negative tracking; body 17px at 1.6; lede in muted; measure (mono) 12–13px tabular.
+display 680 / h2 660 / h3 640, tight negative tracking; body 17px at 1.6; lede in muted. Below body, only these steps exist (CSS vars `--fs-*`): tag 20px, lead-sm 18px, ui 15px, small 14px, measure 13px (mono), caption 12px.
 ### Named Rules
 - **Mono is a measurement.** Use mono where a value is read: specs (400 MPa), hours, labels, captions.
 

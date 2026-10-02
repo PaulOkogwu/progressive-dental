@@ -1,16 +1,18 @@
 ---
 import { site } from '../data/site';
+import Icon from './Icon.astro';
 interface Props { class?: string }
 const q = encodeURIComponent(site.mapQuery);
 ---
 <figure class:list={['map', Astro.props.class]}>
   <iframe title="Map: Progressive Dental Studio, 74 Queen St North, Kitchener" src={`https://www.google.com/maps?q=${q}&z=16&output=embed`} loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-  <figcaption><a class="mono" href={`https://www.google.com/maps/dir/?api=1&destination=${q}`} target="_blank" rel="noopener">Get directions ↗</a></figcaption>
+  <figcaption><a href={`https://www.google.com/maps/dir/?api=1&destination=${q}`} target="_blank" rel="noopener">Get directions <Icon name="arrow" /></a></figcaption>
 </figure>
 <style>
   .map { margin: 0; position: relative; border: 1px solid var(--line-strong); background: var(--ice-2); }
   iframe { display: block; width: 100%; height: clamp(280px, 38vw, 420px); border: 0; filter: saturate(0.75) hue-rotate(-8deg); }
   figcaption { position: absolute; right: 0.75rem; bottom: 0.75rem; }
-  figcaption a { display: inline-block; background: var(--navy); color: #fff; text-decoration: none; padding: 0.55rem 0.8rem; border-radius: 3px; font-size: 0.78rem; }
+  figcaption a :global(svg) { width: 16px; height: 16px; }
+  figcaption a { display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 600; background: var(--navy); color: #fff; text-decoration: none; padding: 0.55rem 0.8rem; border-radius: 3px; font-size: var(--fs-measure); }
   figcaption a:hover { background: var(--navy-ink); }
 </style>

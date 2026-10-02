@@ -13,7 +13,9 @@ const { title, lede } = Astro.props;
 </section>
 <style>
   .intro { padding-block: clamp(2.75rem, 6vw, 5rem) clamp(2rem, 4vw, 3rem); border-bottom: 1px solid var(--line); }
-  .intro-grid { display: grid; grid-template-columns: 1.35fr 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: end; }
+  .intro-grid { display: grid; grid-template-columns: 1fr; gap: clamp(2rem, 5vw, 4rem); align-items: end; }
+  .intro-grid:has(.aside:not(:empty)) { grid-template-columns: 1.35fr 1fr; }
+  .intro-grid .lede { max-width: 60ch; }
   .page-title { font-size: clamp(2.4rem, 5.4vw, 4.4rem); font-weight: 680; line-height: 1; letter-spacing: -0.03em; max-width: 16ch; margin-bottom: 1.25rem; }
   .lede { margin: 0; }
   .aside:empty { display: none; }

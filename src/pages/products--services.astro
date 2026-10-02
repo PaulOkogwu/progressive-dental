@@ -6,18 +6,15 @@ import CrownViewer from '../components/CrownViewer.astro';
 import VisitBand from '../components/VisitBand.astro';
 import Icon from '../components/Icon.astro';
 import { services, digital } from '../data/services';
-import banner from '../assets/img/services/6008123.jpg';
 const steps = [
-  { key: 'Scan', title: 'Scan', text: 'Your office captures a digital impression with an intraoral scanner, such as a 3Shape TRIOS, and sends the file to the lab. No trays, no shipping a physical impression.' },
-  { key: 'Design', title: 'Design', text: 'We design the restoration in 3Shape software: margin line, contours, contacts and occlusion, checked on screen before anything is made.' },
-  { key: 'Make', title: 'Make', text: 'The approved design is milled or pressed in the lab and finished by hand by our technicians.' },
-  { key: 'Deliver', title: 'Deliver', text: 'The finished restoration returns to your office, designed for a precise fit and a faster turnaround.' },
+  { key: 'Scan', title: 'Scan', text: 'Your office captures a digital impression with an intraoral scanner, such as a 3Shape TRIOS, and sends the file to the lab instead of a physical impression.' },
+  { key: 'Design', title: 'Design', text: 'The restoration is designed on screen around the scan: the margin line, contours, contacts and bite.' },
+  { key: 'Make', title: 'Make', text: 'The design becomes the physical restoration, then is finished and checked before it ships.' },
+  { key: 'Deliver', title: 'Deliver', text: 'The finished restoration returns to your office, ready for your patient.' },
 ];
 ---
 <Base title="Products & Services" description="Complete dentures, e.max and all-ceramic, PFM, Vita Easyshade, relines and repairs, Nobel Biocare CAD/CAM zirconia, full cast crowns, implants, cast partials, and a digital 3Shape workflow.">
-  <PageIntro title="Products & Services" lede="Ten lines of work, made in our Kitchener lab with proven materials and systems, from complete dentures to implant rehabilitation and digital design.">
-    <figure class="banner ticks"><Image src={banner} alt="Smiling woman brushing her teeth, with the words “We prefer beautiful smiles”" /></figure>
-  </PageIntro>
+  <PageIntro title="Products & Services" lede="Ten lines of work, made in our Kitchener lab with proven materials and systems, from complete dentures to implant rehabilitation and digital impressions." />
 
   <nav class="jump" aria-label="Services on this page">
     <div class="wrap jump-in">
@@ -46,7 +43,7 @@ const steps = [
     <div class="wrap">
       <div class="d-head">
         <h2 id="digital-title">{digital.name}</h2>
-        <p class="lede">We work digitally with 3Shape. Send a digital impression, and we design, make and deliver the restoration, with every step checked on screen first. Try the workflow below.</p>
+        <p class="lede">Digital impressions are welcome. Step through how a digital case moves from scan to finished restoration, and rotate the crown yourself.</p>
       </div>
       <div class="d-grid">
         <div class="stage sheet ticks">
@@ -107,10 +104,10 @@ const steps = [
 </script>
 
 <style>
-  .banner { margin: 0; max-width: 340px; justify-self: end; background: var(--paper); padding: 8px; border: 1px solid var(--line); }
   .jump { position: sticky; top: var(--header-h); z-index: 20; background: rgb(237 244 251 / 0.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
-  .jump-in { display: flex; gap: 0.35rem; overflow-x: auto; padding-block: 0.65rem; scrollbar-width: none; }
-  .jump a { flex: none; font-size: 0.8125rem; font-weight: 520; padding: 0.4rem 0.75rem; border: 1px solid var(--line); border-radius: 2px; background: var(--paper); text-decoration: none; color: var(--text); transition: border-color 0.2s, color 0.2s; }
+  .jump-in { display: flex; flex-wrap: wrap; gap: 0.35rem; padding-block: 0.65rem; }
+  @media (max-width: 760px) { .jump-in { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: thin; } }
+  .jump a { flex: none; font-size: var(--fs-measure); font-weight: 520; padding: 0.4rem 0.75rem; border: 1px solid var(--line); border-radius: 2px; background: var(--paper); text-decoration: none; color: var(--text); transition: border-color 0.2s, color 0.2s; }
   .jump a:hover { border-color: var(--navy); color: var(--navy); }
   .jump a:last-child { background: var(--blue); border-color: var(--blue); color: var(--navy-ink); }
   .list-section { padding-top: clamp(2.5rem, 5vw, 4rem); }
@@ -124,6 +121,7 @@ const steps = [
   .specs .callout { white-space: normal; }
 
   .digital { padding-block: var(--section); background: linear-gradient(var(--blue), var(--blue)) top / 100% 46% no-repeat; position: relative; scroll-margin-top: calc(var(--header-h) + 50px); }
+  .d-head { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem 2rem; align-items: end; margin-bottom: 3.25rem; }
   .d-head h2 { color: var(--navy-ink); max-width: 13ch; }
   .d-head .lede { color: var(--navy-ink); }
   .d-grid { position: relative; display: grid; grid-template-columns: 1.25fr 1fr; gap: clamp(1.5rem, 4vw, 3rem); align-items: stretch; }
@@ -132,7 +130,7 @@ const steps = [
     linear-gradient(var(--grid-major) 1px, transparent 1px) 0 0 / 24px 24px,
     linear-gradient(90deg, var(--grid-major) 1px, transparent 1px) 0 0 / 24px 24px, var(--paper); }
   .stage :global(.viewer) { position: absolute; inset: 0; }
-  .badge { position: absolute; left: 0.9rem; top: 0.9rem; margin: 0; font-size: 0.7rem; background: var(--ice-2); color: var(--navy); padding: 0.3rem 0.55rem; border-radius: 2px; z-index: 2; }
+  .badge { position: absolute; left: 0.9rem; top: 0.9rem; margin: 0; font-size: var(--fs-caption); background: var(--ice-2); color: var(--navy); padding: 0.3rem 0.55rem; border-radius: 2px; z-index: 2; }
   .steps { background: var(--paper); border: 1px solid var(--line); padding: clamp(1.25rem, 3vw, 2rem); display: flex; flex-direction: column; }
   .tabs { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--line); margin-bottom: 1.5rem; }
   .tabs button { position: relative; display: grid; justify-items: start; gap: 0.6rem; padding: 0 0 0.9rem; background: none; border: 0; font: 600 0.9375rem var(--sans); color: var(--muted); cursor: pointer; text-align: left; }
@@ -146,7 +144,7 @@ const steps = [
   .panel:not([hidden]) { animation: panel-in 0.45s var(--ease-out); }
   @keyframes panel-in { from { opacity: 0; transform: translateY(6px); } }
   .step-nav { display: flex; gap: 0.6rem; margin-top: auto; padding-top: 1.25rem; }
-  .note { margin: 1.25rem 0 0; font-size: 0.8125rem; color: var(--muted); }
+  .note { margin: 1.25rem 0 0; font-size: var(--fs-measure); color: var(--muted); }
 
   @media (max-width: 1000px) {
     .svc { grid-template-columns: 200px minmax(0, 1fr); }
@@ -155,11 +153,10 @@ const steps = [
     .digital { background-size: 100% 38%; }
   }
   @media (max-width: 640px) {
-    .banner { display: none; }
     .svc { grid-template-columns: 1fr; }
     .plate { max-width: 300px; }
     .specs { grid-column: 1; }
-    .tabs button { font-size: 0.8125rem; }
+    .tabs button { font-size: var(--fs-measure); }
     .step-nav .btn { flex: 1; justify-content: center; }
   }
   @media (prefers-reduced-motion: reduce) { .panel:not([hidden]) { animation: none; } }

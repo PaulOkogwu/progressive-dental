@@ -9,7 +9,7 @@ const year = new Date().getFullYear();
     <div class="id">
       <Logo variant="white" class="flogo" />
       <p class="tag">{site.tagline}.</p>
-      <p class="mono since">Dental laboratory · Kitchener, Ontario · since 1999</p>
+      <p class="since">Dental laboratory · Kitchener, Ontario · since 1999</p>
     </div>
     <div>
       <h2 class="fh">Visit</h2>
@@ -41,27 +41,27 @@ const year = new Date().getFullYear();
   </div>
 </footer>
 <style>
-  .site-footer { background: var(--navy-ink); color: #dbe5f5; padding-top: clamp(3.5rem, 7vw, 5.5rem); position: relative; overflow: hidden; }
+  .site-footer { background: var(--navy-ink); color: var(--on-navy); padding-top: clamp(3.5rem, 7vw, 5.5rem); position: relative; overflow: hidden; }
   .grid { position: relative; display: grid; grid-template-columns: 1.4fr 1fr 1.1fr 1.1fr; gap: 2.5rem; padding-bottom: 3rem; }
   .flogo { width: 230px; margin-bottom: 1.25rem; }
-  .tag { font-family: var(--display); font-stretch: 112%; font-size: 1.25rem; font-weight: 600; color: #fff; line-height: 1.25; max-width: 22ch; }
-  .since { color: var(--blue); font-size: 0.75rem; }
-  .fh { font-family: var(--mono); font-stretch: normal; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 1px solid rgb(141 182 224 / 0.3); }
+  .tag { font-family: var(--display); font-stretch: 112%; font-size: var(--fs-tag); font-weight: 600; color: #fff; line-height: 1.25; max-width: 22ch; }
+  .since { color: var(--blue); font-size: var(--fs-caption); }
+  .fh { font-family: var(--mono); font-stretch: normal; font-size: var(--fs-caption); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--blue); margin-bottom: 1rem; padding-bottom: 0.6rem; border-bottom: 1px solid rgb(141 182 224 / 0.3); }
   address { font-style: normal; color: #fff; line-height: 1.6; margin-bottom: 0.75rem; }
-  .small { font-size: 0.875rem; color: #a9bad6; }
+  .small { font-size: var(--fs-small); color: var(--on-navy-muted); }
   .lines { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.6rem; }
   .lines li { display: flex; align-items: center; gap: 0.6rem; }
   .lines :global(svg) { width: 17px; height: 17px; color: var(--blue); flex: none; }
   .site-footer a { color: #fff; text-decoration-color: rgb(141 182 224 / 0.6); }
   .hours { margin: 0; display: grid; gap: 0.55rem; }
   .hours div { display: flex; justify-content: space-between; gap: 1rem; border-bottom: 1px dashed rgb(141 182 224 / 0.25); padding-bottom: 0.45rem; }
-  .hours dt { color: #a9bad6; font-size: 0.9375rem; }
-  .hours dd { margin: 0; color: #fff; font-family: var(--mono); font-size: 0.8125rem; white-space: nowrap; }
+  .hours dt { color: var(--on-navy-muted); font-size: var(--fs-ui); }
+  .hours dd { margin: 0; color: #fff; font-family: var(--mono); font-size: var(--fs-measure); white-space: nowrap; }
   .base { position: relative; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; padding-block: 1.5rem 2rem; border-top: 1px solid rgb(141 182 224 / 0.25); }
   .base nav { display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; }
-  .base nav a { font-size: 0.875rem; text-decoration: none; color: #cfdcf0; }
+  .base nav a { font-size: var(--fs-small); text-decoration: none; color: var(--on-navy-link); }
   .base nav a:hover { color: #fff; text-decoration: underline; }
-  .base .mono { margin: 0; color: #8fa3c4; font-size: 0.75rem; }
+  .base .mono { margin: 0; color: var(--on-navy-faint); font-size: var(--fs-caption); }
   .site-footer ::selection { background: var(--blue); color: var(--navy-ink); }
   @media (max-width: 960px) { .grid { grid-template-columns: 1fr 1fr; } .id { grid-column: 1 / -1; } }
   @media (max-width: 560px) { .grid { grid-template-columns: 1fr; } }
