@@ -1,0 +1,35 @@
+{
+  "hook": {
+    "enabled": true,
+    "limits": {
+      "maxFindings": 5,
+      "maxChars": 8000
+    }
+  },
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "codex-grid-background",
+        "value": "*",
+        "files": [
+          "src/pages/index.astro",
+          "src/pages/products--services.astro",
+          "src/styles/global.css"
+        ],
+        "createdAt": "2026-10-02T01:32:34.643Z",
+        "reason": "Paul chose the Precision drawing direction (drafting grid ground + 3D stage canvases)"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "src/pages/our-team.astro"
+        ],
+        "createdAt": "2026-10-02T01:32:34.662Z",
+        "reason": "Claude: the flagged stripe is the career timeline ruler (1px line + tick marks), not a card accent"
+      }
+    ]
+  }
+}

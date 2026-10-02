@@ -26,3 +26,5 @@ pnpm-debug.log*
 # design review captures
 .impeccable/review/
 .impeccable/mocks/
+.impeccable/config.local.json
+.impeccable/hook.cache.json
