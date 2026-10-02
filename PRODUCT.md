@@ -11,7 +11,7 @@ Astro (static), chosen in the approved plan: keeps the old `.html` page addresse
 
 ## Users
 - Dentists and dental office staff in Kitchener-Waterloo and southern Ontario choosing or re-checking a dental lab. They want to know: what restorations the lab makes, which systems it works with, that the work is precise, and how to reach the lab fast (phone, email, drop-off address, hours).
-- Secondary: patients referred by their dentist, looking at results.
+- Secondary: patients referred by their dentist, looking at results. Confirmed by Paul (2026-10-01): dentists first.
 
 ## Product Purpose
 Progressive Dental Studio Inc. is a full-service dental laboratory at 74 Queen St North, Kitchener (Queen & Weber, across from the Kitchener Main Public Library), in business since 1999, founded and run by Alex Larach, RDT. The site must make the lab look as precise and current as its work, show its services and results, and turn visits into calls, emails, and form messages to lab@progressivedental.ca.
@@ -26,6 +26,10 @@ A long-standing, owner-run lab (since 1999) that pairs personal service with cur
 - Hours: Mon-Thu 8:30 am-5 pm, Fri 8:30 am-2 pm.
 - Contact form must email the lab (Web3Forms).
 - Spelling fixes are proposed to the client, not silently changed in meaning.
+
+### Open (ask the client)
+- 3Shape facts are unconfirmed: which intraoral scanners they accept, whether they design in 3Shape software, and whether they mill or press in-house. Until Alex confirms, copy names TRIOS only as an example and the demo stays labelled "Illustrative demo". The client is also choosing between an embedded 3Shape video, their own videos/cases, or keeping the 3D model.
+- Who manages the domain and hosting (currently Netfirms) for launch.
 
 ## Brand Commitments
 - Light blue is the main brand colour (client's words). Navy from the existing logo for text and accents.
