@@ -3,7 +3,7 @@
 Redesign of progressivedental.ca for Progressive Dental Studio Inc. (Kitchener, ON). Built by Next Era Web Dev.
 
 - Astro static site, same 6 pages and page addresses as the old site (`build.format: 'file'`).
-- Preview: https://paulokogwu.github.io/progressive-dental/ (GitHub Pages, deployed on push to `main`).
+- Preview: https://paulokogwu.github.io/progressive-dental/ (GitHub Pages from the `gh-pages` branch). Deploy with `bash scripts/deploy-preview.sh`.
 - Contact info and hours: `src/data/site.ts`. Services copy: `src/data/services.ts`.
 - 3Shape demo: `src/scripts/crown.ts` (three.js, procedural crown, labelled "Illustrative demo").
 - Logo: `src/assets/brand/logo.svg`, rebuilt with `node scripts/make-logo.mjs`. Replace with the client's original file when we get it.
@@ -11,7 +11,7 @@ Redesign of progressivedental.ca for Progressive Dental Studio Inc. (Kitchener, 
 ## Contact form (Web3Forms)
 The form posts to Web3Forms with the key in `PUBLIC_WEB3FORMS_KEY`.
 - Local: put `PUBLIC_WEB3FORMS_KEY=...` in `.env`.
-- Preview: `gh variable set PUBLIC_WEB3FORMS_KEY --body <key>` then re-run the deploy.
+- Preview: same `.env` key, then `bash scripts/deploy-preview.sh`.
 - Launch: create a key for lab@progressivedental.ca at web3forms.com and swap it in.
 
 ## Launch on progressivedental.ca
