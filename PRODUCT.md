@@ -28,7 +28,7 @@ A long-standing, owner-run lab (since 1999) that pairs personal service with cur
 - Spelling fixes are proposed to the client, not silently changed in meaning.
 
 ### Open (ask the client)
-- 3Shape facts are unconfirmed: which intraoral scanners they accept, whether they design in 3Shape software, and whether they mill or press in-house. Until Alex confirms, copy names TRIOS only as an example and the demo stays labelled "Illustrative demo". The client is also choosing between an embedded 3Shape video, their own videos/cases, or keeping the 3D model.
+- 3Shape facts confirmed by Alex (2026-10-15): the lab designs in 3Shape and mills and presses in-house. He likes the 3D crown (kept, still labelled "Illustrative demo") and wants an official 3Shape video too: "Working with 3Shape TRIOS digital impressions in the lab" (YouTube 7lLZMjYjbxA, 3Shape's channel), click-to-load via youtube-nocookie. Accepted scanners beyond TRIOS are still unconfirmed, so TRIOS stays an example.
 - Who manages the domain and hosting (currently Netfirms) for launch.
 
 ## Brand Commitments

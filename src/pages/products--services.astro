@@ -6,10 +6,12 @@ import CrownViewer from '../components/CrownViewer.astro';
 import VisitBand from '../components/VisitBand.astro';
 import Icon from '../components/Icon.astro';
 import { services, digital } from '../data/services';
+import videoPoster from '../assets/img/3shape-trios-lab.jpg';
+const video = { id: '7lLZMjYjbxA', title: 'Working with 3Shape TRIOS digital impressions in the lab', length: '1:35' };
 const steps = [
   { key: 'Scan', title: 'Scan', text: 'Your office captures a digital impression with an intraoral scanner, such as a 3Shape TRIOS, and sends the file to the lab instead of a physical impression.' },
-  { key: 'Design', title: 'Design', text: 'The restoration is designed on screen around the scan: the margin line, contours, contacts and bite.' },
-  { key: 'Make', title: 'Make', text: 'The design becomes the physical restoration, then is finished and checked before it ships.' },
+  { key: 'Design', title: 'Design', text: 'We design the restoration in 3Shape software around your scan: the margin line, contours, contacts and bite.' },
+  { key: 'Make', title: 'Make', text: 'We mill or press the restoration here in our Kitchener lab, then finish and check it before it ships.' },
   { key: 'Deliver', title: 'Deliver', text: 'The finished restoration returns to your office, ready for your patient.' },
 ];
 ---
@@ -43,7 +45,7 @@ const steps = [
     <div class="wrap">
       <div class="d-head">
         <h2 id="digital-title">{digital.name}</h2>
-        <p class="lede">Digital impressions are welcome. Step through how a digital case moves from scan to finished restoration, and rotate the crown yourself.</p>
+        <p class="lede">Digital impressions are welcome. We design in 3Shape and mill and press in-house. Step through how a digital case moves from scan to finished restoration, and rotate the crown yourself.</p>
       </div>
       <div class="d-grid">
         <div class="stage sheet ticks">
@@ -68,7 +70,22 @@ const steps = [
             <button type="button" class="btn btn-ghost" data-prev disabled><Icon name="prev" />Back</button>
             <button type="button" class="btn btn-primary" data-next>Next step<Icon name="next" /></button>
           </div>
-          <p class="note">This model is drawn in code to show how the digital workflow runs. Real case scans and videos will replace it.</p>
+          <p class="note">The crown is drawn in code to illustrate each step of the workflow.</p>
+        </div>
+      </div>
+
+      <div class="d-video" data-reveal>
+        <div class="v-copy">
+          <p class="callout">From 3Shape</p>
+          <h3>See how practices and labs share digital cases.</h3>
+          <p>A short video from 3Shape showing a TRIOS scan going from the chair to the lab.</p>
+        </div>
+        <div class="v-frame sheet ticks" data-video={video.id}>
+          <button type="button" class="v-play" aria-label={`Play video: ${video.title} (${video.length}, opens YouTube player)`}>
+            <Image src={videoPoster} alt="" widths={[480, 800, 1280]} sizes="(max-width: 1000px) 100vw, 640px" />
+            <span class="v-btn" aria-hidden="true"><svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg></span>
+            <span class="v-len mono" aria-hidden="true">Video · {video.length}</span>
+          </button>
         </div>
       </div>
     </div>
@@ -101,6 +118,19 @@ const steps = [
   prev.addEventListener('click', () => go(cur - 1));
   next.addEventListener('click', () => go(cur === tabs.length - 1 ? 0 : cur + 1));
   go(0);
+
+  // Load the YouTube player only when asked, so the page stays fast and no YouTube cookies are set before play
+  document.querySelectorAll<HTMLElement>('[data-video]').forEach((frame) => {
+    frame.querySelector('button')!.addEventListener('click', () => {
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube-nocookie.com/embed/${frame.dataset.video}?autoplay=1&rel=0`;
+      iframe.title = 'Working with 3Shape TRIOS digital impressions in the lab';
+      iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+      iframe.allowFullscreen = true;
+      frame.replaceChildren(iframe);
+      iframe.focus();
+    }, { once: true });
+  });
 </script>
 
 <style>
@@ -145,11 +175,24 @@ const steps = [
   @keyframes panel-in { from { opacity: 0; transform: translateY(6px); } }
   .step-nav { display: flex; gap: 0.6rem; margin-top: auto; padding-top: 1.25rem; }
   .note { margin: 1.25rem 0 0; font-size: var(--fs-measure); color: var(--muted); }
+  .d-video { display: grid; grid-template-columns: 1fr 1.25fr; gap: clamp(1.5rem, 4vw, 3rem); align-items: center; margin-top: clamp(2.5rem, 5vw, 4rem); }
+  .v-copy h3 { margin: 0.75rem 0 0.6rem; max-width: 22ch; }
+  .v-copy p:last-child { color: var(--text); max-width: 46ch; }
+  .v-frame { aspect-ratio: 16 / 9; padding: 10px; }
+  .v-frame :global(iframe), .v-play { display: block; width: 100%; height: 100%; border: 0; }
+  .v-play { position: relative; padding: 0; background: var(--navy-ink); cursor: pointer; overflow: hidden; }
+  .v-play :global(img) { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s var(--ease-out), opacity 0.3s; opacity: 0.92; }
+  .v-btn { position: absolute; left: 50%; top: 50%; translate: -50% -50%; display: grid; place-items: center; width: 72px; height: 72px; border-radius: 50%; background: var(--navy); color: #fff; box-shadow: 0 10px 24px -10px rgb(19 26 77 / 0.7); transition: scale 0.2s var(--ease-out), background-color 0.2s; }
+  .v-btn svg { translate: 2px 0; }
+  .v-len { position: absolute; right: 0.75rem; bottom: 0.75rem; font-size: var(--fs-caption); background: var(--paper); color: var(--navy); padding: 0.25rem 0.5rem; border-radius: 2px; }
+  .v-play:hover .v-btn, .v-play:focus-visible .v-btn { scale: 1.06; background: var(--navy-ink); }
+  .v-play:hover :global(img) { transform: scale(1.02); opacity: 1; }
+  .v-play:active .v-btn { scale: 0.97; }
 
   @media (max-width: 1000px) {
     .svc { grid-template-columns: 200px minmax(0, 1fr); }
     .specs { grid-column: 2; }
-    .d-head, .d-grid { grid-template-columns: 1fr; }
+    .d-head, .d-grid, .d-video { grid-template-columns: 1fr; }
     .digital { background-size: 100% 38%; }
   }
   @media (max-width: 640px) {
@@ -159,5 +202,5 @@ const steps = [
     .tabs button { font-size: var(--fs-measure); }
     .step-nav .btn { flex: 1; justify-content: center; }
   }
-  @media (prefers-reduced-motion: reduce) { .panel:not([hidden]) { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { .panel:not([hidden]) { animation: none; } .v-play :global(img), .v-btn { transition: none; } }
 </style>
